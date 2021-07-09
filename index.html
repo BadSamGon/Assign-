@@ -13,7 +13,6 @@
     <div class="loader"></div>
 
 
-    
     <div id="select" class="custom-select">
         <select id="select_change">
             <option value="0">None</option>
@@ -70,35 +69,92 @@
     <script>
         //document.querySelector('#1', '#2', '#3', '#4', '#5', '#6').selectindex = -1;
 
-        let selectChange = document.getElementById("select_change");
+        let selectChange = document.getElementById("select_change"); const firstName = document.querySelectorAll('.first_name');
+            const lastName = document.querySelectorAll('.last_name');
         selectChange.onchange = function() {
+            //alert(selectChange.value);
             
-            const firstname = ['George', 'Janet', 'Emma', 'Eve', 'Charles', 'Tracey'];
-            firstname.sort();
-            console.log(firstname);
+            //alert(firstName.length);
+            var arrayFirstObject = [],
+                arrayFirstName = [],
+                arrayLastObject = [],
+                arrayLastName = [],
+                arraySequenceNum = [];
+            for (let i = 0; i < firstName.length; i++) {
+                arrayFirstObject[i] = {
+                    'id': firstName[i].parentNode.parentNode.parentNode.id,
+                    'firstName': firstName[i].innerText
+                }
+                arrayFirstName[i] = firstName[i].innerText;
+     
+            }
 
-            const lastname = ['Bluth', 'Weaver', 'Wong', 'Holt', 'Morris', 'Ramos'];
-            lastname.sort();
-            console.log(lastname);
+            for (let i = 0; i < lastName.length; i++) {
+                arrayLastObject[i] = {
+                    'id': lastName[i].parentNode.parentNode.parentNode.id,
+                    'firstName': lastName[i].innerText
+                }
+                arrayLastName[i] = lastName[i].innerText;
 
-            sortList();
+            }
+
+ 
+            arrayFirstName.sort();
+            arrayLastName.sort();
+
+            if (selectChange.value == 1) {
+          
+
+                var arr = [],
+                    list = document.getElementById('place-list'),
+                    c = list.children,
+                    l = c.length,
+                    i;
+                for (i = 0; i < l; i++) arr[i] = c[i];
+                //console.log(arr);
+                //for (i = 0; i < l; i++) console.log(arr[i]);
+                for (i = 0; i < l; i++) {
+                    for (let j = 0; j < l; j++) {
+                        console.log(arrayFirstName[i]);
+                        if (arrayFirstName[i] == arrayFirstObject[j]['firstName']) {
+                            let idValue = arrayFirstObject[j]['id']
+                            list.appendChild(arr[idValue - 1]);
+                            console.log(arr[idValue - 1]);
+                        }
+                    }
+                }
+             
+            }
+
+            if (selectChange.value == 2) {
+              
+                var arr = [],
+                    list = document.getElementById('place-list'),
+                    c = list.children,
+                    l = c.length,
+                    i;
+                for (i = 0; i < l; i++) arr[i] = c[i];
+                
+                for (i = 0; i < l; i++) {
+                    for (let j = 0; j < l; j++) {
+                        console.log(arrayLastName[i]);
+                        if (arrayLastName[i] == arrayLastObject[j]['firstName']) {
+                            let idValue = arrayLastObject[j]['id']
+                            list.appendChild(arr[idValue - 1]);
+                            console.log(arr[idValue - 1]);
+                        }
+                    }
+                }
+
+            }
+
+            for (let i = 0; i < lastName.length; i++) {
+                arrayLastName[i] = lastName[i].innerText;
+            }
+
 
         }
 
-        function sortList() {
-            sortList.direction = sortList.direction ? false : true;
-            var arr = [],
-                list = document.getElementById('place-list'),
-                c = list.children,
-                l = c.length,
-                i;
-            for (i = 0; i < l; i++) arr[i] = c[i]; 
-            arr.sort(function(a, b) {
-                return a.id < b.id ? -1 : 1;
-            }); 
-            if (!sortList.direction) arr = arr.reverse();
-            for (i = 0; i < l; i++) list.appendChild(arr[i]);
-        }
     </script>
     
 </body>
